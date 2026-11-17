@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>6. 자산·투자 현황</title>
+<style>
+@font-face{font-family:"EmojiOnly";src:local("Apple Color Emoji"),local("Segoe UI Emoji"),local("Noto Color Emoji");unicode-range:U+1F000-1FAFF,U+2600-27BF,U+2B50,U+2B06,U+FE0F,U+200D,U+2728,U+26A1}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:Pretendard,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",Arial,sans-serif;color:#182033;font-size:13px;line-height:1.5;overflow:hidden}
+button{font-family:inherit;cursor:pointer}
+#dashboardViewport{height:100vh}
+.app{display:flex;height:100vh}
+/* ===== 사이드바 (공통 기준: 165px) ===== */
+.sidebar{width:165px;flex:0 0 165px;display:flex;flex-direction:column;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-right:1px solid rgba(64,93,230,.14);height:100vh}
+.brand{height:62px;padding:0 13px;display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,#e1306c,#833ab4,#405de6);color:#fff;font-size:14px;font-weight:800}
+.brand-mark{width:20px;height:20px;flex:0 0 20px}
+.brand b{display:block}
+.menu{display:grid;grid-auto-rows:max-content;gap:2px;flex:1 1 0%;min-height:0;overflow:hidden auto;padding:18px 14px;scrollbar-width:thin;scrollbar-color:rgba(225,48,108,.56) rgba(64,93,230,.08)}
+.menu::-webkit-scrollbar{width:8px}
+.menu::-webkit-scrollbar-track{background:rgba(64,93,230,.06);border-radius:999px}
+.menu::-webkit-scrollbar-thumb{border:2px solid rgba(255,255,255,.74);border-radius:999px;background:linear-gradient(rgba(225,48,108,.62),rgba(131,58,180,.45))}
+.menu-label{font-size:11px;font-weight:700;color:#a0a7b5;padding:8px 10px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:5px 11px;border:0;border-radius:16px;background:none;color:#4a5470;font-size:13px;font-weight:600;text-align:left;width:100%;line-height:1.25}
+.nav-item:hover{background:rgba(64,93,230,.06)}
+.nav-item.active{background:linear-gradient(135deg,rgba(225,48,108,.12),rgba(131,58,180,.09));color:#e1306c;font-weight:700;box-shadow:inset 0 0 0 1px rgba(225,48,108,.09)}
+.nav-icon{width:22px;height:22px;flex:0 0 22px;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:13px;box-shadow:inset 0 0 0 1px rgba(225,48,108,.18)}
+/* ===== 본문 ===== */
+.main{flex:1;min-width:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:14px 22px}
+.topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:1px 14px;min-height:45px;border-radius:18px;background:rgba(255,255,255,.9);border:1px solid #e1e6f2;box-shadow:0 12px 28px rgba(64,93,230,.07);backdrop-filter:blur(14px);flex:0 0 auto}
+.topbar .ttl{font-size:15px;font-weight:800;letter-spacing:-.3px}
+.topbar .sp{flex:1}
+.seg{display:inline-flex;background:#eef1fb;border-radius:12px;padding:2px}
+.seg button{border:0;background:none;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700;color:#6a7390}
+.seg button.on{background:#fff;color:#405de6;box-shadow:0 2px 8px rgba(64,93,230,.15)}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#4a5470}
+.tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;background:rgba(225,48,108,.1);color:#e1306c}
+.tag.blue{background:rgba(64,93,230,.1);color:#405de6}
+.tag.amber{background:rgba(252,175,69,.2);color:#b36b00}
+h1{font-size:24px;font-weight:700;letter-spacing:-.6px;margin:2px 2px 0}
+.sub{color:#6a7390;margin:0 2px 2px;font-size:12.5px}
+.grid{display:grid;gap:12px}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{background:rgba(255,255,255,.96);border:1px solid rgba(64,93,230,.18);border-radius:24px;box-shadow:0 9px 28px rgba(42,53,92,.07);padding:16px 18px;min-width:0}
+.card h3{margin:0 0 4px;font-size:15px;font-weight:800;letter-spacing:-.3px}
+.card .note{color:#7a8399;font-size:11.5px;margin:0 0 8px}
+.kpi .lb{font-size:12px;color:#7a8399;font-weight:700}
+.kpi .vl{font-size:26px;font-weight:800;letter-spacing:-.8px;margin:2px 0}
+.kpi .sb{font-size:11.5px;color:#7a8399}
+.pos{color:#12915f}.neg{color:#e1306c}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th{background:#f3f5fc;color:#5a6481;font-weight:800;text-align:right;padding:7px 10px;white-space:nowrap}
+td{padding:6px 10px;text-align:right;border-bottom:1px solid #edf0f8;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td.l,th.l{text-align:left;white-space:normal}
+tr.flag td{background:rgba(252,175,69,.12)}
+.ins{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.ins li{padding:10px 12px;border-radius:14px;background:linear-gradient(135deg,rgba(64,93,230,.05),rgba(225,48,108,.04));border:1px solid rgba(64,93,230,.1)}
+.ins b{font-weight:800}
+.bar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:#eef1fb}
+.bar i{display:block;height:100%}
+.lg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:#5a6481;margin:6px 0}
+.lg span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:3px;background:var(--c);margin-right:5px}
+svg text{font-family:inherit}
+#tip{position:fixed;z-index:50;pointer-events:none;background:#182033;color:#fff;padding:6px 10px;border-radius:10px;font-size:11.5px;display:none;white-space:pre-line;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+.scroll{overflow:auto}
+/* 챗봇 */
+.chat{flex:0 0 auto;margin-top:auto;padding:12px 14px 16px;border-top:1px solid rgba(64,93,230,.14)}
+#cbFab{position:static;display:flex;width:100%;height:42px;border-radius:16px;border:0;background:linear-gradient(135deg,#e1306c,#833ab4,#405de6);color:#fff;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:800;padding:0 11px}
+#cbFab:hover{filter:brightness(1.06)}
+#cbFab .cb-ic{font-size:16px;line-height:1}
+#cbPanel{position:fixed;left:178px;bottom:16px;width:340px;max-height:70vh;display:none;flex-direction:column;background:#fff;border:1px solid rgba(64,93,230,.18);border-radius:24px;box-shadow:0 24px 60px rgba(42,53,92,.22);z-index:40;overflow:hidden}
+#cbPanel.open{display:flex}
+#cbPanel .hd{background:linear-gradient(135deg,#e1306c,#833ab4,#405de6);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:8px;font-weight:800}
+#cbPanel .hd button{margin-left:auto;border:0;background:rgba(255,255,255,.2);color:#fff;border-radius:10px;padding:3px 9px;font-size:11px;font-weight:700}
+#cbLog{padding:12px 14px;overflow:auto;flex:1;display:grid;gap:8px;align-content:start;min-height:120px}
+.msg{padding:8px 12px;border-radius:14px;font-size:12.5px;max-width:92%}
+.msg.u{justify-self:end;background:rgba(64,93,230,.1)}
+.msg.a{background:#f5f6fb}
+#cbQs{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid #edf0f8;max-height:130px;overflow:auto}
+#cbQs button{border:1px solid rgba(64,93,230,.25);background:#fff;border-radius:999px;padding:4px 10px;font-size:11.5px;font-weight:700;color:#405de6}
+#cbIn{display:flex;gap:6px;padding:8px 12px 12px}
+#cbIn input{flex:1;border:1px solid #dfe4f2;border-radius:12px;padding:7px 10px;font-size:12.5px;font-family:inherit}
+#cbIn button{border:0;border-radius:12px;background:#405de6;color:#fff;padding:0 12px;font-weight:800}
+.warn{border-left:4px solid #fcaf45;background:rgba(252,175,69,.1);padding:8px 12px;border-radius:10px;font-size:12px;color:#7a5200}
+</style>
+<style id="sidebar-font-bg-unify">
+/* 사이드바 글꼴 + 페이지 배경 통일 (1~4번 기준) */
+body .sidebar .brand,body .sidebar .brand div,body .sidebar .brand b,body .sidebar .brand span{font-family:HakgyoAllimjang,Pretendard,sans-serif!important;font-synthesis:weight}
+body .sidebar .brand b{font-size:14px!important;font-weight:800!important}
+body .sidebar .menu-label,body .sidebar .nav-item,body .sidebar .nav-item .nav-label{font-family:Pretendard,"Malgun Gothic",sans-serif!important}
+body .sidebar .nav-item .nav-icon,body .sidebar .nav-item i{font-family:Pretendard,"Segoe UI Emoji","Apple Color Emoji",sans-serif!important}
+html{background:none!important}
+body{background:radial-gradient(circle at 14% 10%,rgba(64,93,230,.13),rgba(0,0,0,0) 34%),radial-gradient(circle at 88% 18%,rgba(225,48,108,.1),rgba(0,0,0,0) 32%),linear-gradient(135deg,rgba(64,93,230,.08),rgba(252,175,69,.12),rgba(225,48,108,.08))!important}
+#dashboardViewport>:is(.app,#dashboardApp){background:linear-gradient(135deg,rgba(64,93,230,.05),rgba(252,175,69,.08),rgba(225,48,108,.05))!important}
+</style>
+<style id="sidebar-icon-unify">
+/* 제목 앞 아이콘: 2번(뱅셀) 이미지 아이콘 */
+html body .sidebar .brand .brand-mark{width:20px!important;height:20px!important;flex:0 0 20px!important;font-size:0!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;display:inline-flex!important}
+html body .sidebar .brand .brand-mark::before{content:""!important;display:block!important;width:20px!important;height:20px!important;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAGCklEQVR4AeyaW0wcVRjHvzOwLRTaIjS2WFpaa1sJsUTBxmitFhNo13CNScGo0dT0wSaN+uBTiQafeKuJmhjTGmPAhy0BVpCCsPQC4baFFsv9TmlBKAgFoVx2j985uLgth+4Ou7M7sGzOf86Zw5lvvv9vZmfOziCBh38sAEgifpKTk0M8jQcHgMZfROM5ZrM5A2uPKhzA/Py8L3NNKeU1a3uKOABPMSvyuQ5ARMWT+tbPAE862iKv62eAiIor+5KSkoJwHhIsUkxMjJ/Subj1DIiPjz+Kc48Bk8l0VyRfX9/WuLi4TUpCcCsAjUYzgObqCCGNVurDtqUEe3t7++MYxYpbAWRnZ7fn5ua+gnqBCV2/iU6HUC4rbgVg7ZJdC/DrcBn7XkZVou6gRIX9cDuMX59jthQbGxsoCmDdpwoAVuajMDlmXoswprC9pKBpLXZWS5JksCUfH59fcOwj5fEVtwMQmcevw9jjiVrW0TQ/qtuDAyDy8D6hwg/ttgwPsjSWq90KQK55axMRL+2F02dPCHXyg6OAZ5D18GXbbgNgyzxeECfRxCzeBWZE2VNR5wr63ALAlnnmAx/OpODcIFqn042zdaXkcgD2mGdm9Xp9R35+PrsgslXF5FIA9ppXzK0gsMsAqNE84+ESAGo1bzcA+oNRQ8sa/WlZfQCvjUYN29geqdk8y/+RMwBvPYSW3QqhBuO7JoPxG7PBWGouM3bR/XSE0ulRSk3DvJ6AEfxbj9lw4wqO+26+tOYjWmrch7ctwoJapHbzLE8OIHTbDv67O3LPcyconevBe2wmOjmLA6KBwl4AshkA2FH35jUFth4KQN/AcZ9IRLpICWmjhhuNCCSdFlftXw3m0QtIbHH8UORxPHrgJUkbcd0LtYJCJSAQhkDSHszNNm/z39KIQRbn9k+a3uI4txWJ75lQPOi85fBi4uE0pOf96jU8Mb79wI6d8NPHn03lnEkLdjiwQgEWADgpODefmwWdQwPAzKclpMLWTX5vUS9znclQk0ZlXDydlJLNME4DIDLvt9HnvwSIDwEpnT4Aw9TvVap6AesUAE82D9afIz4bvatpcTW7Nlj3K9a2FdhhAPaan52fh5LGeihoqH0mt6G25P3U1C8SEhLOiIR3kAO2EnfW3x0CYK95lmxFexN8X1oAF64Wwc/lJVsnpqczcN7xrUh4RzrPtnGFVgxAjnlmZA7PAFaHBwXCyQP7hYoNxakFDkIAlosHrilbVgRArnlrC+GBQZBy8KBQsXtC7X6SYx3TkbZsAI6YdyRRpbaVBWCtmWdQZQEobDDySc5BnOGl4STn//s8C7U6JQtAdFgEvPfqMTi3RsyzQyYLwLbNWyA56jVYC0eemWeSBYBtsNZkE8DY1CROXErhwrUiGyqGtsG7q46PTQDlbU2QV1cJBTdrbagGLtWWrz0AJrOZmzoSGQKffhglVMrbYXwMvszg9Wpa2DwDLGZCd26F16N2CRXx/NNOncHh7wNi2a/Std0AlE7EOv72LQG78BGVSyCoEkCg/+bdcP16AKzgI3cTVQLAp8wamPNbfMkv15Sc8aoEsGDA7JJHZ+oFQMhTCyCUXaoWgAnM7B2Fsu4xumoBeBFpYQKCSSpZVAsAX8kJ/0vM2TDUC8AMw842K4qnUgDsVR3tFSXs7D5VApiZm5uEmaF+Z5sVxVMlgHtjoy1Eq50RJezsPlUC+Gfm4aSzjS4XT5UAlktWiX4OQAJeQf/ofciqvAKZlWWLqu/t5Pu91fIXZP3WJFRxRTcQQgBP3SXbW2LVdLXxOH+OjEBmS4tQhd09PA4h5NnExMSvRcK3Ru+wQJ2tA5CrqxKq9PJNHgfHhYhiYN9XWq2Wv4bizpvv9V/DnXID7KlOdm0FWNRwpxvjANxuuw/ZRa1ClVX18TGD43/zp0KWba3rut4OPqZ5dBQutXcI9UffQhwcyJI7h/USYZ7x2A9dHYNQmGcU6mrJbTaEQdiJjSUxsO/LDRs2nMJ64dB/npGuR7LJ+ETntCcIIZ7SaDTnFwFgg+bl5eXo9fofV5tWkm9OTs5FnU43ir7hXwAAAP//dspUKQAAAAZJREFUAwABfru94lDxEwAAAABJRU5ErkJggg==") center/contain no-repeat!important}
+html body .sidebar .nav-item .nav-icon,html body .sidebar .nav-item i{font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif!important;font-size:13px!important;font-weight:400!important;color:inherit!important}
+</style>
+<style id="topbar-unify-a41">
+body main.main{padding:14px 22px!important;gap:10px!important}
+body main.main>header.topbar#dashboardHeader{box-sizing:border-box!important;margin:0!important;padding:1px 14px!important;min-height:45px!important;height:auto!important;border-radius:18px!important;background:rgba(255,255,255,.9)!important;border:1px solid rgb(225,230,242)!important;box-shadow:0 12px 28px rgba(64,93,230,.07)!important}
+</style>
+<style id="sidebar-chat-btn">
+body .sidebar .chat{flex:0 0 auto;margin-top:auto;padding:12px 14px 16px;border-top:1px solid rgba(64,93,230,.14)}
+body .sidebar #cbFab,body .sidebar #cbFab[hidden]{position:static!important;display:flex!important;width:100%!important;height:42px!important;border-radius:16px!important;border:0!important;box-shadow:none!important;transform:none!important;background:linear-gradient(135deg,#e1306c,#833ab4,#405de6)!important;color:#fff!important;align-items:center;justify-content:center;gap:8px;font-family:Pretendard,"Malgun Gothic",sans-serif!important;font-size:13px!important;font-weight:800!important;cursor:pointer;padding:0 11px}
+body .sidebar #cbFab:hover{filter:brightness(1.06)}
+body .sidebar #cbFab .cb-ic{font-size:16px;line-height:1}
+</style>
+</head>
+<body>
+<div id="dashboardViewport">
+<div class="app" id="dashboardApp">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark" aria-hidden="true"></div><div><b>6. 자산·투자 현황</b></div></div>
+    <nav class="menu" id="menu"></nav>
+    <div class="chat"><button id="cbFab" type="button"><span class="cb-ic">💬</span><span>챗봇</span></button></div>
+  </aside>
+  <main class="main">
+    <header class="topbar" id="dashboardHeader">
+      <span class="ttl" id="ttl">핵심 요약</span>
+      <span class="seg" id="segOwner"><button data-o="합산" class="on">합산</button><button data-o="성현">성현</button><button data-o="지혜">지혜</button></span>
+      <label class="chk"><input type="checkbox" id="chkEx"> 이상치 월 제외</label>
+      <span class="sp"></span>
+      <span class="tag amber">기준 2026-10</span>
+      <span class="tag">🔒 개인정보 포함 · 공유 금지</span>
+    </header>
+    <div id="view"></div>
+  </main>
+</div>
+</div>
+<div id="tip"></div>
+<div id="cbPanel">
+  <div class="hd">💬 자산·투자 챗봇 <button id="cbReset" type="button">대화 초기화</button><button id="cbClose" type="button">닫기</button></div>
+  <div id="cbLog"></div>
+  <div id="cbQs"></div>
+  <form id="cbIn"><input id="cbText" placeholder="예: 순자산, 집중도, 이자, 미분류" autocomplete="off"><button type="submit">전송</button></form>
+</div>
+<script>
+const D={"months":["2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"nw":{"성현":{"2025-09":{"date":"2025-09-30","net":890343289.0144,"asset":3387343289.0144,"debt":2497000000.0},"2025-10":{"date":"2025-10-31","net":888337969.4660001,"asset":3385337969.466,"debt":2497000000.0},"2025-11":{"date":"2025-11-30","net":877998469.7038002,"asset":3374998469.7038,"debt":2497000000.0},"2025-12":{"date":"2025-12-31","net":920391395.1606998,"asset":3417391395.1607,"debt":2497000000.0},"2026-01":{"date":"2026-01-31","net":916365000.5121002,"asset":3413365000.5121,"debt":2497000000.0},"2026-02":{"date":"2026-02-28","net":941819851.4421,"asset":3438819851.4421,"debt":2497000000.0},"2026-03":{"date":"2026-03-31","net":913093743.6493998,"asset":3410093743.6493998,"debt":2497000000.0},"2026-04":{"date":"2026-04-30","net":856713673.0576,"asset":2523713673.0576,"debt":1667000000.0},"2026-05":{"date":"2026-05-31","net":1092299620.7215,"asset":2759299620.7215,"debt":1667000000.0},"2026-06":{"date":"2026-06-30","net":1044199210.0349998,"asset":2990199210.035,"debt":1946000000.0},"2026-07":{"date":"2026-07-31","net":933026483.1800003,"asset":2878711660.1800003,"debt":1945685177.0},"2026-08":{"date":"2026-08-31","net":1013406793.0096002,"asset":2958775990.0096,"debt":1945369197.0},"2026-09":{"date":"2026-09-30","net":1240515170.2322001,"asset":2960591918.2322,"debt":1720076748.0},"2026-10":{"date":"2026-10-31","net":1225074340.7068,"asset":2964861170.7068,"debt":1739786830.0}},"지혜":{"2025-04":{"date":"2025-04-30","net":217465389.3705,"asset":258465389.3705,"debt":41000000.0},"2025-05":{"date":"2025-05-31","net":244445648.5686,"asset":285445648.5686,"debt":41000000.0},"2025-06":{"date":"2025-06-30","net":327259017.392,"asset":368259017.392,"debt":41000000.0},"2025-07":{"date":"2025-07-31","net":364476789.0,"asset":405476789.0,"debt":41000000.0},"2025-08":{"date":"2025-08-31","net":471716752.16719997,"asset":512716752.16719997,"debt":41000000.0},"2025-09":{"date":"2025-09-30","net":490634678.73,"asset":531634678.73,"debt":41000000.0},"2025-10":{"date":"2025-10-31","net":550315235.4,"asset":591315235.4,"debt":41000000.0},"2025-11":{"date":"2025-11-30","net":584931960.0,"asset":625931960.0,"debt":41000000.0},"2025-12":{"date":"2025-12-31","net":591571005.01,"asset":632571005.01,"debt":41000000.0},"2026-01":{"date":"2026-01-31","net":645239374.5,"asset":686239374.5,"debt":41000000.0},"2026-02":{"date":"2026-02-28","net":470963992.38,"asset":551596981.38,"debt":80632989.0},"2026-03":{"date":"2026-03-31","net":629459715.1724,"asset":670459715.1724,"debt":41000000.0},"2026-04":{"date":"2026-04-30","net":713885740.8,"asset":754885740.8,"debt":41000000.0},"2026-05":{"date":"2026-05-31","net":414057484.798,"asset":517963469.798,"debt":103905985.0},"2026-06":{"date":"2026-06-30","net":267066788.144,"asset":371219157.144,"debt":104152369.0},"2026-07":{"date":"2026-07-31","net":614030377.8304,"asset":655030377.8304,"debt":41000000.0},"2026-08":{"date":"2026-08-31","net":627245839.372,"asset":668245839.372,"debt":41000000.0},"2026-09":{"date":"2026-09-30","net":627658377.0,"asset":668658377.0,"debt":41000000.0},"2026-10":{"date":"2026-10-31","net":495902540.0,"asset":536902540.0,"debt":41000000.0}}},"flag":[["지혜","2026-02"],["지혜","2026-05"],["지혜","2026-06"]],"basis":{"성현":{"date":"2026-10-31","cats":{"자유입출금 자산":12800706.0,"신탁 자산":0.0,"현금 자산":0.0,"저축성 자산":1500000.0,"전자금융 자산":10000.0,"투자성 자산":505882199.7068,"부동산":1372500000.0,"동산":10750000.0,"기타 실물 자산":953000000.0,"보험 자산":0.0,"연금 자산":108418265.0,"부채:장기대출":-1739786830.0,"부채:총부채":-1739786830.0},"net":1225074340.7068,"asset":2964861170.7068,"debt":1739786830.0,"inv":[{"broker":"신한투자증권","name":"SK하이닉스","cost":321820499.0,"value":285018000.0,"ret":-11.43572243357935},{"broker":"신한투자증권","name":"DIREXION SEMICONDUCTOR DAILY 3X","cost":151526093.0,"value":103090634.0,"ret":-31.9650946190502},{"broker":"신한투자증권","name":"KODEX 삼성전자단일종목레버리지","cost":31699999.0,"value":9427000.0,"ret":-70.26182871488419},{"broker":"NH투자증권","name":"SK하이닉스","cost":89618805.0,"value":80826000.0,"ret":-9.811339260772334},{"broker":"NH투자증권","name":"1Q K반도체TOP2+","cost":14335649.0,"value":12337500.0,"ret":-13.93832256914214},{"broker":"NH투자증권","name":"TIGER 미국나스닥100","cost":2972600.0,"value":6819000.0,"ret":129.3951422996703},{"broker":"NH투자증권","name":"TIGER 골드선물(H)","cost":792860.0,"value":1351980.0,"ret":70.51938551572788},{"broker":"NH투자증권","name":"KODEX 미국달러선물","cost":796385.0,"value":1149135.0,"ret":44.29390307451798}],"loan":[{"type":"은행 대출","bank":"기타은행","name":"삼부 전세 보증금","principal":0.0,"balance":650000000.0,"rate":null,"start":null,"end":null},{"type":"은행 대출","bank":"기타은행","name":"춘천 파밀리에 전세 보증금","principal":0.0,"balance":320000000.0,"rate":null,"start":null,"end":null},{"type":"은행 대출","bank":"기타은행","name":"세종 이편한세상. 지현 대출","principal":0.0,"balance":300000000.0,"rate":null,"start":null,"end":null},{"type":"은행 대출","bank":"기타은행","name":"아버지 신용대출","principal":0.0,"balance":20000000.0,"rate":null,"start":null,"end":null},{"type":"은행 대출","bank":"SC제일은행","name":"퍼스트홈론","principal":351000000.0,"balance":349786830.0,"rate":4.61,"start":"2026-06-30","end":"2063-06-30"},{"type":"은행 대출","bank":"국민은행","name":"본부승인집단신용대출","principal":100000000.0,"balance":100000000.0,"rate":4.24,"start":"2020-08-28","end":"2027-08-28"}]},"지혜":{"date":"2026-10-31","cats":{"자유입출금 자산":9290347.0,"신탁 자산":0.0,"현금 자산":0.0,"저축성 자산":0.0,"전자금융 자산":0.0,"투자성 자산":527612193.0,"부동산":0.0,"동산":0.0,"기타 실물 자산":0.0,"보험 자산":0.0,"연금 자산":0.0,"부채:장기대출":-41000000.0,"부채:총부채":-41000000.0},"net":495902540.0,"asset":536902540.0,"debt":41000000.0,"inv":[{"broker":"메리츠증권","name":"DIREXION SEMICONDUCTOR DAILY 3X","cost":392598989.0,"value":273673740.0,"ret":-30.29178686957852},{"broker":"메리츠증권","name":"DIREXION SEMICONDUCTOR DAILY 3X","cost":206341758.0,"value":144038811.0,"ret":-30.19405650309522},{"broker":"메리츠증권","name":"DIREXION SEMICONDUCTOR DAILY 3X","cost":74731932.0,"value":50207814.0,"ret":-32.81611667687114},{"broker":"NH투자증권","name":"TIGER 미국나스닥100","cost":4962550.0,"value":6819000.0,"ret":37.4091948695731},{"broker":"NH투자증권","name":"KODEX 미국AI테크TOP10","cost":4754199.0,"value":6558850.0,"ret":37.95909679001657},{"broker":"NH투자증권","name":"TIGER 미국S&P500","cost":4933250.0,"value":6327500.0,"ret":28.26230172806973},{"broker":"NH투자증권","name":"TIGER 단기채권액티브","cost":1108200.0,"value":1147600.0,"ret":3.555314925103772}],"loan":[{"type":"은행 대출","bank":"카카오뱅크","name":"신용대출","principal":41000000.0,"balance":41000000.0,"rate":5.79,"start":"2024-04-04","end":"2027-04-04"},{"type":"은행 대출","bank":"농협은행","name":"농협은행 마이너스 통장","principal":66000000.0,"balance":0.0,"rate":5.03,"start":"2024-01-10","end":"2027-01-10"}]}},"cf":{"months":["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"o":{"성현":{"income":[5261911.0,4803372.0,8274866.0,29370899.0,4998950.0,5590350.0,5482294.0,5766067.0,5050217.0,5572578.0,4283990.0,5651079.0],"expense":[871339.0,2918685.0,2000127.0,9660510.0,4792680.0,3642045.0,5211516.0,4080240.0,3006540.0,3913590.0,3240517.0,2277954.0],"unclass":[42325.0,827205.0,112530.0,1241870.0,39400.0,0,27900.0,37800.0,0,400.0,182657.0,11594.0],"salary":[4811911.0,4803372.0,8274866.0,29370899.0,4998950.0,5590350.0,5482247.0,5766067.0,5050217.0,4852578.0,4283990.0,4298079.0],"living":[749014.0,2076480.0,1887597.0,1309640.0,4740380.0,2089745.0,2152976.0,3032440.0,2305760.0,2072220.0,2362650.0,749360.0],"bomi":[0,0,0,0,12900.0,0,2906140.0,0,700780.0,1321290.0,14300.0,0],"couple":[80000.0,15000.0,0,7109000.0,0,868100.0,124500.0,0,0,519680.0,0,345000.0]},"지혜":{"income":[1187048.0,900680.0,166003.0,698137.0,1291905.0,2683092.0,2129113.0,16001911.0,769022.0,785987.0,64287.0,150576774.0],"expense":[2610826.0,9143035.0,8098864.0,5395523.0,10908821.0,9965312.0,14697297.0,29171011.0,17778586.0,11486204.0,19231555.0,146011328.0],"unclass":[1587180.0,6173532.0,4316453.0,3471665.0,8786262.0,7463417.0,11504319.0,26651347.0,15712665.0,9443163.0,18244528.0,143966792.0],"salary":[946000.0,270000.0,0,30000.0,0,1612530.0,0,0,0,0,0,150057100.0],"living":[292346.0,1607491.0,602423.0,631988.0,385099.0,471501.0,483168.0,498774.0,561991.0,1002408.0,190087.0,490675.0],"bomi":[630000.0,1082000.0,1999885.0,1127770.0,1446110.0,1735094.0,2494410.0,1849190.0,1373180.0,955860.0,675360.0,1243340.0],"couple":[0,51600.0,950300.0,51000.0,0,0,51000.0,77000.0,0,0,0,51000.0]}}},"cf_month_labels_all":{"성현":["2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"],"지혜":["2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"]},"jihye_0930":{"net":627658377.0},"recon":{"manual_0412":1057226317,"bangsel_0412":{"성현":852420075,"지혜":702761420}},"recon3":{"months":["2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"l3":[1223009085,1243731727,1391981411,1394884641,1464780726,1518865054,1540786725,1505858949,1516522893,1525346530,1531167808],"l6":[1511962400.1706998,1561604375.0121002,1412783843.8221002,1542553458.8217998,1570599413.8576,1506357105.5194998,1311265998.179,1547056861.0104003,1640652632.3816001,1868173547.2322001,1720976880.7068],"l6a":[1511962400.1706998,1561604375.0121002,1579169396.2783,1542553458.8217998,1570599413.8576,1772900240.5316334,1691514708.8552666,1547056861.0104003,1640652632.3816001,1868173547.2322001,1720976880.7068],"comp":{"투자":[683722031.1707,737830463.0121,619310704.8221,773640130.8218,844307041.8576,936515500.5195,731609287.1789999,1077266074.0104,1094451017.3816,1145054690.2322001,1033494392.7068],"현금":[67677469.0,67693912.0,76856128.0,12493328.0,38702372.0,-54662410.0,234229080.0,40725964.0,31421512.0,10780354.0,22091053.0],"부동산·실물":[3292000000.0,3287000000.0,3287000000.0,3287000000.0,2388000000.0,2388000000.0,2388000000.0,2408000000.0,2493000000.0,2328000000.0,2325500000.0],"부채":[2538000000.0,2538000000.0,2577632989.0,2538000000.0,1708000000.0,1770905985.0,2050152369.0,1986685177.0,1986369197.0,1761076748.0,1780786830.0]},"pl":[668488.8496000059,-3439654.1239999924,-7454909.177900005,-47179484.17819998,7909160.823599998,10763221.421999993,21567163.990000002,-41321523.56960001,-16026555.203200005,15504626.0,-314201204.0],"st3":[48988824,26977046,3474236,65186195,56372542,39233331,-36952132,11121664,9779960,0],"cfexp":314570220.0,"cfinc":255207521.0,"adjM":["2026-02","2026-05","2026-06"]},"last":"2026-10"};
+/* ===== 글꼴·아이콘 보강: 4번 대시보드에서 학교안심 알림장체를 가져옴(실패 시 기본 글꼴) ===== */
+(function(){
+  const K='d6-font-v1';
+  const inject=css=>{const s=document.createElement('style');s.id='hakgyo-font';s.textContent=css;document.head.appendChild(s)};
+  try{const c=localStorage.getItem(K);if(c){inject(c);return}}catch(e){}
+  fetch('https://ace2013sk-debug.github.io/stock-dashboard/').then(r=>r.text()).then(t=>{
+    const m=t.match(/@font-face\s*\{[^}]*HakgyoAllimjang[^}]*\}/);
+    if(m){inject(m[0]);try{localStorage.setItem(K,m[0])}catch(e){}}
+  }).catch(()=>{});
+})();
+/* ===== 유틸 ===== */
+const $=s=>document.querySelector(s);
+const E=1e8;
+const fE=v=>(v/E).toFixed(2)+'억';
+const fW=v=>Math.round(v).toLocaleString('ko-KR');
+const fM=v=>Math.round(v/1e4).toLocaleString('ko-KR');
+const pct=(a,b)=>b?(a/b*100):0;
+const OWN=['성현','지혜'];
+const COL={'성현':'#405de6','지혜':'#e1306c','합산':'#833ab4'};
+const st={view:'overview',owner:'합산',ex:false};
+const flagSet=new Set(D.flag.map(x=>x[0]+'|'+x[1]));
+const isFlag=(o,m)=>flagSet.has(o+'|'+m);
+const owners=()=>st.owner==='합산'?OWN:[st.owner];
+const sum=a=>a.reduce((x,y)=>x+y,0);
+/* ===== 순자산 계열 ===== */
+function nwSeries(){
+  const out={};
+  for(const o of OWN){out[o]=D.months.map(m=>{const r=D.nw[o][m];if(!r)return null;if(st.ex&&isFlag(o,m))return null;return r.net})}
+  out['합산']=D.months.map((m,i)=>{const a=D.nw['성현'][m],b=D.nw['지혜'][m];if(!a||!b)return null;if(st.ex&&(isFlag('성현',m)||isFlag('지혜',m)))return null;return a.net+b.net});
+  return out;
+}
+/* ===== 기준 시점 구성 ===== */
+const B=D.basis;
+const CATS=['자유입출금 자산','저축성 자산','전자금융 자산','투자성 자산','부동산','기타 실물 자산','연금 자산'];
+const CCOL=['#9fb2f5','#7c93f0','#b9a2e4','#833ab4','#e1306c','#fcaf45','#12a37a'];
+function catSum(o){return CATS.map(c=>(B[o].cats[c]||0))}
+function loanSplit(o){
+  const dep=B[o].loan.filter(l=>l.rate==null||l.rate===undefined).reduce((a,l)=>a+(l.balance||0),0);
+  const fin=B[o].loan.filter(l=>l.rate!=null).reduce((a,l)=>a+(l.balance||0),0);
+  return {dep,fin};
+}
+function allLoans(){const r=[];for(const o of owners())for(const l of B[o].loan)r.push({...l,o});return r}
+function interest(loans){return sum(loans.filter(l=>l.rate!=null&&l.balance>0).map(l=>l.balance*l.rate/100))}
+/* 투자 종목 합산 */
+function holdings(){
+  const m={};
+  for(const o of owners())for(const h of B[o].inv){
+    const key=o+'|'+h.name;
+    if(!m[key])m[key]={o,name:h.name,cost:0,value:0};
+    m[key].cost+=h.cost;m[key].value+=h.value;
+  }
+  return Object.values(m).sort((a,b)=>b.value-a.value);
+}
+const isLev=n=>/레버리지|3배|3X/i.test(n)?'레버리지 표기':'';
+/* ===== 현금흐름 ===== */
+function cfAgg(){
+  const n=D.cf.months.length,z=()=>Array(n).fill(0);
+  const a={income:z(),expense:z(),unclass:z(),salary:z(),living:z(),bomi:z(),couple:z()};
+  for(const o of owners())for(const k in a)D.cf.o[o][k].forEach((v,i)=>a[k][i]+=v);
+  return a;
+}
+/* ===== 차트 ===== */
+function niceMax(v){const p=Math.pow(10,Math.floor(Math.log10(v||1)));const f=v/p;return (f<=1?1:f<=2?2:f<=5?5:10)*p}
+function lineChart(labels,series,opt={}){
+  const W=780,H=300,L=52,R=14,T=14,Bm=34,iw=W-L-R,ih=H-T-Bm;
+  const vals=series.flatMap(s=>s.vals.filter(v=>v!=null));
+  let mn=Math.min(0,...vals),mx=Math.max(...vals);
+  const rng=mx-mn||1;mx=mn+niceMax(rng);
+  const x=i=>L+(labels.length<2?iw/2:i*iw/(labels.length-1));
+  const y=v=>T+ih-(v-mn)/(mx-mn)*ih;
+  let g='';
+  for(let k=0;k<=4;k++){const v=mn+(mx-mn)*k/4;g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#e8ecf7"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" font-size="10.5" fill="#7a8399">${(v/E).toFixed(1)}</text>`}
+  const step=Math.ceil(labels.length/12);
+  labels.forEach((l,i)=>{if(i%step===0||i===labels.length-1)g+=`<text x="${x(i)}" y="${H-10}" text-anchor="middle" font-size="10.5" fill="#7a8399">${l.slice(2)}</text>`});
+  let p='';
+  series.forEach(s=>{
+    let d='',open=false;
+    s.vals.forEach((v,i)=>{if(v==null){return}d+=(d?'L':'M')+x(i)+','+y(v)});
+    p+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
+    s.vals.forEach((v,i)=>{if(v==null)return;const f=s.flags&&s.flags[i];
+      p+=`<circle cx="${x(i)}" cy="${y(v)}" r="${f?5:3.4}" fill="${f?'#fff':s.color}" stroke="${s.color}" stroke-width="2" data-tip="${s.name} ${labels[i]}\n${fE(v)}${f?'\n⚠ 이상치 의심':''}"/>`});
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img">${g}${p}</svg>`+legend(series.map(s=>[s.name,s.color]).concat(series.some(s=>s.flags)?[['○ 이상치 의심','#fcaf45']]:[]));
+}
+function legend(items){return `<div class="lg">${items.map(i=>`<span style="--c:${i[1]}">${i[0]}</span>`).join('')}</div>`}
+function stackBars(labels,groups,opt={}){
+  // groups: [{name, parts:[{name,color,vals}]}] 각 월에 막대 쌍
+  const W=780,H=300,L=52,R=14,T=14,Bm=34,iw=W-L-R,ih=H-T-Bm;
+  let mx=0;groups.forEach(g=>labels.forEach((_,i)=>{mx=Math.max(mx,sum(g.parts.map(p=>p.vals[i])))}));mx=niceMax(mx);
+  const y=v=>T+ih-v/mx*ih;const bw=iw/labels.length;
+  let s='';
+  for(let k=0;k<=4;k++){const v=mx*k/4;s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#e8ecf7"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" font-size="10.5" fill="#7a8399">${fM(v)}</text>`}
+  labels.forEach((l,i)=>{
+    const x0=L+i*bw+bw*.12,w=bw*.34;
+    s+=`<text x="${L+i*bw+bw/2}" y="${H-10}" text-anchor="middle" font-size="10.5" fill="#7a8399">${l.slice(2)}</text>`;
+    groups.forEach((g,gi)=>{let acc=0;const xx=x0+gi*(w+bw*.06);
+      g.parts.forEach(p=>{const v=p.vals[i];if(!v)return;const h=v/mx*ih;
+        s+=`<rect x="${xx}" y="${y(acc+v)}" width="${w}" height="${h}" fill="${p.color}" rx="2" data-tip="${l} ${g.name}·${p.name}\n${fM(v)}만 원"/>`;acc+=v});
+    });
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%">${s}</svg>`;
+}
+function hbars(items,fmt){
+  const mx=Math.max(...items.map(i=>i.v))||1;
+  return items.map(i=>`<div style="display:grid;grid-template-columns:150px 1fr 150px;gap:10px;align-items:center;margin:6px 0"><div style="font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${i.l}">${i.l}</div><div class="bar"><i style="width:${i.v/mx*100}%;background:${i.c}" data-tip="${i.l}\n${fmt(i.v)}"></i></div><div style="text-align:right;font-weight:700">${i.t||fmt(i.v)}</div></div>`).join('');
+}
+/* ===== 뷰 ===== */
+const VIEWS={};
+const MENU=[
+ ['요약',[['overview','핵심 요약','📊 '],['nw','순자산 추이','🏦']]],
+ ['자산·부채',[['mix','자산·부채 구성','🥧'],['loan','대출·이자','🪙']]],
+ ['투자',[['inv','투자 집중도','💹']]],
+ ['현금흐름',[['cf','월별 현금흐름','💵']]],
+ ['3번 대사',[['recon3','3번 월별 차이','⚖️']]],
+ ['점검',[['dq','데이터 품질','🏷️'],['man','매뉴얼','📖']]]
+];
+const TITLES={overview:'핵심 요약',recon3:'3번 월별 차이',nw:'순자산 추이',mix:'자산·부채 구성',loan:'대출·이자',inv:'투자 집중도',cf:'월별 현금흐름',dq:'데이터 품질',man:'매뉴얼'};
+function tot(o){return {net:B[o].net,asset:B[o].asset,debt:B[o].debt}}
+function totals(){const t={net:0,asset:0,debt:0};owners().forEach(o=>{const x=tot(o);t.net+=x.net;t.asset+=x.asset;t.debt+=x.debt});return t}
+VIEWS.overview=()=>{
+  const t=totals(),os=owners();
+  const ls=os.reduce((a,o)=>{const s=loanSplit(o);a.dep+=s.dep;a.fin+=s.fin;return a},{dep:0,fin:0});
+  const hs=holdings(),hv=sum(hs.map(h=>h.value)),hc=sum(hs.map(h=>h.cost));
+  const j0=D.nw['지혜']['2025-04'].net,j1=B['지혜'].net;
+  // 집중도(종목명 단위, 소유자별 합산)
+  const top=[hs[0].o+' '+hs[0].name,hs[0].value];
+  const cf=cfAgg(),unc=pct(sum(cf.unclass),sum(cf.expense));
+  const ser=nwSeries()[st.owner];
+  const labs=D.months;
+  return `<h1>핵심 요약</h1><p class="sub">${st.owner} 기준 · 성현 ${B['성현'].date} · 지혜 ${B['지혜'].date} 스냅샷</p>
+  <div class="grid g4">
+    <div class="card kpi"><div class="lb">순자산</div><div class="vl">${fE(t.net)}</div><div class="sb">총자산 ${fE(t.asset)} − 총부채 ${fE(t.debt)}</div></div>
+    <div class="card kpi"><div class="lb">총자산</div><div class="vl">${fE(t.asset)}</div><div class="sb">투자성 자산 ${fE(sum(os.map(o=>B[o].cats['투자성 자산'])))}</div></div>
+    <div class="card kpi"><div class="lb">총부채</div><div class="vl">${fE(t.debt)}</div><div class="sb">금융 대출 ${fE(ls.fin)} · 보증금 항목 ${fE(ls.dep)}</div></div>
+    <div class="card kpi"><div class="lb">투자현황 평가금액</div><div class="vl">${fE(hv)}</div><div class="sb">원금 ${fE(hc)} · 수익률 <span class="${hv>=hc?'pos':'neg'}">${(pct(hv-hc,hc)).toFixed(1)}%</span></div></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>순자산 추이</h3><p class="note">월말 기준 마지막 스냅샷 · 단위 억 원</p>${lineChart(labs,[{name:st.owner,color:COL[st.owner],vals:ser,flags:labs.map(m=>st.owner==='합산'?(isFlag('성현',m)||isFlag('지혜',m)):isFlag(st.owner,m))}])}</div>
+    <div class="card"><h3>핵심 인사이트</h3><p class="note">자동 계산 값 · 판단은 사용자 몫이며 투자 권고가 아닙니다</p>
+      <ul class="ins">
+        <li>합산 순자산은 <b>${fE(totals().net)}</b>이며 성현 <b>${pct(B['성현'].net,B['성현'].net+B['지혜'].net).toFixed(0)}%</b>, 지혜 <b>${pct(B['지혜'].net,B['성현'].net+B['지혜'].net).toFixed(0)}%</b>입니다 (${D.last} 기준).</li>
+        <li>지혜 순자산은 2025-04 <b>${fE(j0)}</b>에서 ${D.last} <b>${fE(j1)}</b>으로 <b class="pos">+${fE(j1-j0)}</b> (+${pct(j1-j0,j0).toFixed(0)}%) 늘었습니다.</li>
+        <li>투자현황 최대 종목은 <b>${top[0]}</b>이며 ${st.owner} 평가금액의 <b>${pct(top[1],hv).toFixed(0)}%</b>입니다.</li>
+        <li>총부채 중 <b>보증금 항목 ${fE(ls.dep)}</b>은 금리가 없는 '전세 보증금' 행입니다. 금융 대출은 <b>${fE(ls.fin)}</b>입니다 <span class="tag amber">성격 확인 필요</span></li>
+        <li>지출의 <b>${unc.toFixed(0)}%</b>가 '미분류'입니다 (최근 ${D.cf.months.length}개월). 지출 분석은 참고용입니다.</li>
+      </ul></div>
+  </div>`};
+VIEWS.nw=()=>{
+  const S=nwSeries(),labs=D.months;
+  const sel=st.owner==='합산'?['성현','지혜','합산']:[st.owner];
+  const series=sel.map(o=>({name:o,color:COL[o],vals:S[o],flags:labs.map(m=>o==='합산'?(isFlag('성현',m)||isFlag('지혜',m)):isFlag(o,m))}));
+  const rows=labs.map((m,i)=>{
+    const a=D.nw['성현'][m],b=D.nw['지혜'][m];const f=isFlag('성현',m)||isFlag('지혜',m);
+    return `<tr class="${f?'flag':''}"><td>${m}</td><td>${a?fE(a.net):'-'}</td><td>${b?fE(b.net):'-'}</td><td>${a&&b?fE(a.net+b.net):'-'}</td><td class="l">${f?'⚠ 이상치 의심':''}</td></tr>`}).join('');
+  return `<h1>순자산 추이</h1><p class="sub">월별 마지막 스냅샷 기준 · 합산은 두 사람 스냅샷이 모두 있는 달만 표시합니다 (2025-09 ~ 2026-10)</p>
+  <div class="card"><h3>순자산 (억 원)</h3>${lineChart(labs,series)}</div>
+  <div class="card scroll"><h3>월별 값</h3><table><thead><tr><th>월</th><th>성현</th><th>지혜</th><th>합산</th><th class="l">비고</th></tr></thead><tbody>${rows}</tbody></table></div>`};
+VIEWS.mix=()=>{
+  const os=owners();
+  const rows=CATS.map((c,i)=>{const v=sum(os.map(o=>B[o].cats[c]||0));return {l:c,v,c:CCOL[i]}}).filter(r=>r.v>0);
+  const A=sum(rows.map(r=>r.v));
+  const parts=rows.map(r=>`<i style="width:${r.v/A*100}%;background:${r.c}" data-tip="${r.l}\n${fE(r.v)} (${(r.v/A*100).toFixed(1)}%)"></i>`).join('');
+  const ls=os.reduce((a,o)=>{const s=loanSplit(o);a.dep+=s.dep;a.fin+=s.fin;return a},{dep:0,fin:0});
+  const dbt=[{l:'보증금 항목(금리 없음)',v:ls.dep,c:'#fcaf45'},{l:'금융 대출',v:ls.fin,c:'#e1306c'}].filter(x=>x.v>0);
+  const tbl=rows.map(r=>`<tr><td>${r.l}</td><td>${fE(r.v)}</td><td>${(r.v/A*100).toFixed(1)}%</td>${os.length>1?OWN.map(o=>`<td>${fE(B[o].cats[CATS[CCOL.indexOf(r.c)]]||0)}</td>`).join(''):''}</tr>`).join('');
+  return `<h1>자산·부채 구성</h1><p class="sub">${st.owner} · 성현 ${B['성현'].date} / 지혜 ${B['지혜'].date}</p>
+  <div class="card"><h3>총자산 ${fE(A)} 구성</h3><div class="bar" style="height:22px">${parts}</div>${legend(rows.map(r=>[r.l+' '+(r.v/A*100).toFixed(0)+'%',r.c]))}</div>
+  <div class="grid g2"><div class="card scroll"><h3>자산 항목</h3><table><thead><tr><th>구분</th><th>금액</th><th>비중</th>${os.length>1?'<th>성현</th><th>지혜</th>':''}</tr></thead><tbody>${tbl}</tbody></table></div>
+  <div class="card"><h3>부채 구성</h3><p class="note">'전세 보증금' 행은 금리·원금 정보가 없는 항목입니다. 성격은 원본 확인이 필요합니다.</p>${hbars(dbt,fE)}<p style="margin:8px 0 0">총부채 <b>${fE(ls.dep+ls.fin)}</b></p></div></div>`};
+VIEWS.loan=()=>{
+  const L=allLoans().filter(l=>l.rate!=null);
+  const bal=sum(L.map(l=>l.balance)),ie=interest(L);
+  const wr=bal?ie/bal*100:0;
+  const hs=holdings(),hv=sum(hs.map(h=>h.value)),hc=sum(hs.map(h=>h.cost));
+  const rows=L.map(l=>`<tr><td class="l">${l.o} · ${l.name}</td><td class="l">${l.bank}</td><td>${fW(l.balance)}</td><td>${l.rate.toFixed(2)}%</td><td>${fW(l.balance*l.rate/100)}</td><td>${l.end||'-'}</td></tr>`).join('');
+  return `<h1>대출·이자</h1><p class="sub">금리가 있는 금융 대출만 포함 · 연 이자는 잔액×금리의 단순 추정입니다</p>
+  <div class="grid g4">
+    <div class="card kpi"><div class="lb">금융 대출 잔액</div><div class="vl">${fE(bal)}</div><div class="sb">${L.length}건 (잔액 0 포함)</div></div>
+    <div class="card kpi"><div class="lb">가중평균 금리</div><div class="vl">${wr.toFixed(2)}%</div><div class="sb">잔액 가중</div></div>
+    <div class="card kpi"><div class="lb">연 이자 추정</div><div class="vl">${fM(ie)}만</div><div class="sb">월 ${fM(ie/12)}만 원</div></div>
+    <div class="card kpi"><div class="lb">비교 지표: 투자 수익률</div><div class="vl">${pct(hv-hc,hc).toFixed(1)}%</div><div class="sb">투자현황 총 평가/원금 (참고용)</div></div>
+  </div>
+  <div class="card scroll"><h3>대출 목록</h3><table><thead><tr><th class="l">대출</th><th class="l">금융사</th><th>잔액(원)</th><th>금리</th><th>연 이자 추정(원)</th><th>만기일</th></tr></thead><tbody>${rows}</tbody></table></div>`};
+VIEWS.inv=()=>{
+  const hs=holdings(),hv=sum(hs.map(h=>h.value)),hc=sum(hs.map(h=>h.cost));
+  const g={};hs.forEach(h=>{const k=h.o+'|'+h.name;g[k]=(g[k]||0)+h.value});
+  const topv=Math.max(...Object.values(g));
+  const lev=sum(hs.filter(h=>isLev(h.name)).map(h=>h.value));
+  const items=hs.map((h,i)=>({l:h.o+' · '+h.name,v:h.value,c:isLev(h.name)?'#fcaf45':COL[h.o],t:fE(h.value)+' ('+pct(h.value,hv).toFixed(1)+'%)'}));
+  const rows=hs.map(h=>`<tr><td class="l">${h.o}</td><td class="l">${h.name}</td><td>${fW(h.cost)}</td><td>${fW(h.value)}</td><td class="${h.value>=h.cost?'pos':'neg'}">${pct(h.value-h.cost,h.cost).toFixed(1)}%</td><td>${pct(h.value,hv).toFixed(1)}%</td><td class="l">${isLev(h.name)?`<span class="tag">${isLev(h.name)}</span>`:''}</td></tr>`).join('');
+  const extra=owners().includes('지혜')?`<div class="warn">지혜 투자성 자산 ${fE(B['지혜'].cats['투자성 자산'])} 중 투자현황 표에 잡힌 금액은 ${fE(sum(B['지혜'].inv.map(i=>i.value)))}입니다. 차이(${fE(B['지혜'].cats['투자성 자산']-sum(B['지혜'].inv.map(i=>i.value)))})는 Super365 계좌로 원본에 표기되어 있으며, 현금성 여부는 확인이 필요합니다.</div>`:'';
+  return `<h1>투자 집중도</h1><p class="sub">${st.owner} · 투자현황 표 기준 (원본 '5.투자현황')</p>
+  <div class="grid g4">
+    <div class="card kpi"><div class="lb">평가금액</div><div class="vl">${fE(hv)}</div><div class="sb">원금 ${fE(hc)}</div></div>
+    <div class="card kpi"><div class="lb">총 수익률</div><div class="vl ${hv>=hc?'pos':'neg'}">${pct(hv-hc,hc).toFixed(1)}%</div><div class="sb">평가손익 ${fE(hv-hc)}</div></div>
+    <div class="card kpi"><div class="lb">최대 종목 비중</div><div class="vl">${pct(topv,hv).toFixed(0)}%</div><div class="sb">소유자별 동일 종목은 합산</div></div>
+    <div class="card kpi"><div class="lb">레버리지 표기 종목</div><div class="vl">${pct(lev,hv).toFixed(0)}%</div><div class="sb">${fE(lev)} · 종목명 기준 판정</div></div>
+  </div>
+  <div class="card"><h3>종목별 평가금액</h3>${hbars(items,fE)}${legend([['성현',COL['성현']],['지혜',COL['지혜']],['레버리지 표기 종목','#fcaf45']])}</div>
+  ${extra}
+  <div class="card scroll"><h3>종목 상세</h3><table><thead><tr><th class="l">소유자</th><th class="l">종목</th><th>원금</th><th>평가금액</th><th>수익률</th><th>비중</th><th class="l">표기</th></tr></thead><tbody>${rows}</tbody></table></div>`};
+VIEWS.cf=()=>{
+  const a=cfAgg(),L=D.cf.months;
+  const labelExp=a.expense.map((v,i)=>v-a.unclass[i]);
+  const rows=L.map((m,i)=>`<tr><td>${m}</td><td>${fM(a.income[i])}</td><td>${fM(a.salary[i])}</td><td>${fM(labelExp[i])}</td><td>${fM(a.unclass[i])}</td><td>${fM(a.expense[i])}</td><td class="${a.unclass[i]/(a.expense[i]||1)>.5?'neg':''}">${pct(a.unclass[i],a.expense[i]).toFixed(0)}%</td></tr>`).join('');
+  return `<h1>월별 현금흐름</h1><p class="sub">${st.owner} · ${L[0]} ~ ${L[L.length-1]} (두 사람 모두 마감된 ${L.length}개월) · 단위 만 원</p>
+  <div class="grid g4">
+    <div class="card kpi"><div class="lb">수입 합계</div><div class="vl">${fE(sum(a.income))}</div><div class="sb">급여·성과급 ${fE(sum(a.salary))}</div></div>
+    <div class="card kpi"><div class="lb">지출 합계</div><div class="vl">${fE(sum(a.expense))}</div><div class="sb">분류 지출 ${fE(sum(labelExp))}</div></div>
+    <div class="card kpi"><div class="lb">미분류 지출 비중</div><div class="vl ${pct(sum(a.unclass),sum(a.expense))>50?'neg':''}">${pct(sum(a.unclass),sum(a.expense)).toFixed(0)}%</div><div class="sb">${fE(sum(a.unclass))}</div></div>
+    <div class="card kpi"><div class="lb">생활비 월평균</div><div class="vl">${fM(sum(a.living)/L.length)}만</div><div class="sb">봄이 ${fM(sum(a.bomi)/L.length)}만 · 부부 ${fM(sum(a.couple)/L.length)}만</div></div>
+  </div>
+  <div class="card"><h3>월별 수입 · 지출</h3><p class="note">왼쪽 막대 수입, 오른쪽 막대 지출(분류·미분류)</p>${stackBars(L,[{name:'수입',parts:[{name:'수입',color:'#405de6',vals:a.income}]},{name:'지출',parts:[{name:'분류 지출',color:'#e1306c',vals:labelExp},{name:'미분류 지출',color:'#fcaf45',vals:a.unclass}]}])}${legend([['수입','#405de6'],['분류 지출','#e1306c'],['미분류 지출','#fcaf45']])}</div>
+  <div class="card scroll"><h3>월별 표</h3><table><thead><tr><th>월</th><th>수입</th><th>급여·성과급</th><th>분류 지출</th><th>미분류 지출</th><th>지출 합계</th><th>미분류 비중</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="warn">미분류 지출에는 투자 이체·계좌 간 이동이 포함될 수 있어, 수입−지출을 저축액으로 해석하지 않습니다.</div>`};
+VIEWS.dq=()=>{
+  const cfJ=D.cf.o['지혜'],cfS=D.cf.o['성현'];
+  const uJ=pct(sum(cfJ.unclass),sum(cfJ.expense)),uS=pct(sum(cfS.unclass),sum(cfS.expense));
+  const debts=D.months.filter(m=>D.nw['성현'][m]).map(m=>`<tr><td>${m}</td><td>${fE(D.nw['성현'][m].debt)}</td><td>${fE(D.nw['성현'][m].asset)}</td><td>${fE(D.nw['성현'][m].net)}</td></tr>`).join('');
+  const fl=D.flag.map(([o,m])=>`${o} ${m} (${fE(D.nw[o][m].net)})`).join(', ');
+  const r=D.recon,b0412=r.bangsel_0412['성현']+r.bangsel_0412['지혜'];
+  return `<h1>데이터 품질</h1><p class="sub">대시보드 수치를 해석할 때 알아야 할 원본의 특성과 점검 항목입니다</p>
+  <div class="card scroll"><h3>점검 결과</h3><table><thead><tr><th class="l">번호</th><th class="l">항목</th><th class="l">내용</th><th class="l">처리</th></tr></thead><tbody>
+  <tr><td class="l">1</td><td class="l">이상치 월</td><td class="l">${fl}. 직전 월 대비 25% 이상 하락 후 2개월 내 회복한 월입니다.</td><td class="l">'이상치 월 제외'로 숨길 수 있음. 원인 <span class="tag amber">확인 필요</span></td></tr>
+  <tr><td class="l">2</td><td class="l">지출 미분류</td><td class="l">지혜 ${uJ.toFixed(0)}%, 성현 ${uS.toFixed(0)}% (최근 ${D.cf.months.length}개월)</td><td class="l">지혜 지출 분석은 참고용</td></tr>
+  <tr><td class="l">3</td><td class="l">부채 정의 변화</td><td class="l">성현 총부채가 달에 따라 크게 달라집니다 (아래 표). 2026-09에는 부동산 −585 · 기타 실물 +420 · 부채 −225 · 연금 +127백만이 함께 움직여 재분류로 보입니다.</td><td class="l">추이는 순자산 기준으로 비교 <span class="tag amber">확인 필요</span></td></tr>
+  <tr><td class="l">4</td><td class="l">시점 불일치</td><td class="l">성현 ${B['성현'].date}, 지혜 ${B['지혜'].date} (시점 일치)</td><td class="l">합산은 같은 월 기준</td></tr>
+  <tr><td class="l">5</td><td class="l">투자 범위</td><td class="l">지혜 Super365(투자성 자산 내)는 투자현황 표에 없음</td><td class="l">현금성 여부 <span class="tag amber">확인 필요</span></td></tr>
+  <tr><td class="l">6</td><td class="l">순자산 정본</td><td class="l">2026-04-12 기준 뱅셀 합산 ${fE(b0412)} vs 수기 정리표 ${fE(r.manual_0412)} (차이 ${fE(b0412-r.manual_0412)})</td><td class="l">정본 기준 결정 필요</td></tr>
+  <tr><td class="l">7</td><td class="l">3번 대시보드 대사</td><td class="l">3번 순자산 15.3억(기준월 미확인) vs 본 화면 합산 ${fE(B['성현'].net+B['지혜'].net)} (${D.last}). 성현 급여 2026-01은 3번이 35만 원 적음</td><td class="l"><span class="tag amber">확인 필요</span></td></tr>
+  <tr><td class="l">8</td><td class="l">스냅샷 교체</td><td class="l">성현 2026-08은 08-16 → 08-31 파일로 교체되어 순자산 9.83억 → 10.13억 (+30.4백만). 현금흐름 기간은 2025-11 ~ 2026-10이며 일부 월 지출은 뱅셀 재분류로 이전 값과 다릅니다 (성현 2025-11·12, 2026-02·03)</td><td class="l">최신 파일 기준 <span class="tag amber">확인 필요</span></td></tr>
+  <tr><td class="l">9</td><td class="l">지혜 2026-10 감소</td><td class="l">순자산 6.28억 → 4.96억 (−21.0%). 투자성 자산 662.4 → 527.6백만, 투자현황 원금 15.8 → 689.4백만 · 평가 22.1 → 488.8백만으로 표 구성이 크게 바뀜</td><td class="l">이상치 기준(−25%)에는 미해당 <span class="tag amber">확인 필요</span></td></tr>
+  </tbody></table></div>
+  <div class="card scroll"><h3>성현 자산·부채 추이 (월말 마지막 스냅샷)</h3><table><thead><tr><th>월</th><th>총부채</th><th>총자산</th><th>순자산</th></tr></thead><tbody>${debts}</tbody></table></div>`};
+VIEWS.man=()=>`<h1>매뉴얼</h1><p class="sub">데이터 출처와 화면 해석 방법</p>
+  <div class="card"><h3>데이터 출처</h3><ul class="ins"><li>뱅크샐러드 재무 리뷰 내보내기 엑셀 (시트명 <b>소유자_YY.MM.DD</b>, 성현 24개·지혜 21개). 2026-08-31(성현·지혜), 2026-09-30(성현·지혜), 2026-10-31(성현·지혜) RAW 6개는 '뱅샐현황' 시트로 추가 반영했습니다</li><li>숨김 시트와 수기 정리표(<b>지혜_순자산 정리</b>)는 추이에서 제외하고 대사에만 사용합니다.</li><li>월별 갱신: 성현·지혜 RAW 2개('00. 뱅셀_RAW DATA/26년/N월/RAW')의 '뱅샐현황' 시트로 월말 스냅샷을 추가하며, 같은 월 중복·월 건너뜀은 중단합니다. '가계부 내역'(거래)은 아직 반영하지 않았습니다.</li><li>거래 내역은 포함되어 있지 않아 소비 분석은 2번 뱅셀 가계부, 소득·지출 흐름은 3번 엑셀 가계부를 참고하십시오.</li></ul></div>
+  <div class="card"><h3>화면 해석</h3><ul class="ins"><li><b>월별 값</b>: 같은 달 스냅샷이 여러 개면 마지막 것을 사용합니다.</li><li><b>합산</b>: 성현·지혜 스냅샷이 모두 있는 달만 계산합니다.</li><li><b>이상치</b>: 직전 월 대비 −25% 이상 하락 후 회복한 달을 표시합니다. 상단 체크박스로 숨깁니다.</li><li><b>연 이자 추정</b>: 잔액×금리이며 실제 납부액과 다를 수 있습니다.</li><li><b>레버리지 표기</b>: 종목명 문구로만 판정합니다.</li></ul></div>
+  <div class="card"><h3>개인정보 취급</h3><ul class="ins"><li>이 파일에는 자산·부채·보유 종목이 포함되어 있습니다. 공개 저장소(GitHub Pages)나 공개 링크로 올리지 않는 것을 권장합니다.</li><li>검색 엔진 수집을 막는 메타 태그가 포함되어 있습니다.</li></ul></div>`;
+function divBars(labels,series,opt={}){
+  const W=780,H=300,L=52,R=14,T=14,Bm=34,iw=W-L-R,ih=H-T-Bm,st2=!!opt.stack;
+  const U=1e6,bw=iw/labels.length;let mn=0,mx=0;
+  labels.forEach((_,i)=>{if(st2){let p=0,n=0;series.forEach(s=>{const v=(s.vals[i]||0)/U;v>=0?p+=v:n+=v});mx=Math.max(mx,p);mn=Math.min(mn,n)}else series.forEach(s=>{const v=(s.vals[i]||0)/U;mx=Math.max(mx,v);mn=Math.min(mn,v)})});
+  if(opt.line)opt.line.vals.forEach(v=>{if(v!=null){mx=Math.max(mx,v/U);mn=Math.min(mn,v/U)}});
+  const step=niceMax((mx-mn)/4||1);mx=Math.ceil(mx/step)*step;mn=Math.floor(mn/step)*step;if(opt.vl)mx+=step;
+  const y=v=>T+ih-(v-mn)/(mx-mn)*ih;let s='';
+  for(let v=mn;v<=mx+1e-9;v+=step)s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="${v===0?'#9aa3b8':'#e8ecf7'}"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" font-size="10.5" fill="#7a8399">${Math.round(v)}</text>`;
+  labels.forEach((l,i)=>{
+    s+=`<text x="${L+i*bw+bw/2}" y="${H-10}" text-anchor="middle" font-size="10.5" fill="#7a8399">${l.slice(2)}</text>`;
+    if(st2){let p=0,n=0;const w=bw*.5,x0=L+i*bw+(bw-w)/2;series.forEach(se=>{const v=(se.vals[i]||0)/U;if(!v)return;const y1=v>=0?y(p+v):y(n),h=Math.abs(v)/(mx-mn)*ih;s+=`<rect x="${x0}" y="${y1}" width="${w}" height="${h}" fill="${se.color}" data-tip="${l} ${se.name}\n${v>0?'+':''}${v.toFixed(1)}백만 원"/>`;v>=0?p+=v:n+=v})}
+    else{const k=series.length,w=bw*.78/k,x0=L+i*bw+bw*.11;series.forEach((se,j)=>{const raw=se.vals[i];if(raw==null)return;const v=raw/U;s+=`<rect x="${x0+j*w}" y="${v>=0?y(v):y(0)}" width="${w*.92}" height="${Math.max(1,Math.abs(v)/(mx-mn)*ih)}" fill="${se.color}" rx="2" data-tip="${l} ${se.name}\n${v>0?'+':''}${v.toFixed(1)}백만 원"/>`+(opt.vl?`<text x="${x0+j*w+w*.5}" y="${(v>=0?y(v)-4:y(v)+4)}" text-anchor="${v>=0?'start':'end'}" font-size="${opt.vl}" fill="#182033" transform="rotate(-90 ${x0+j*w+w*.5} ${(v>=0?y(v)-4:y(v)+4)})">${(opt.sign||se.sign)&&v>0?'+':''}${v.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1}).replace('-','−')}</text>`:'')})}
+  });
+  if(opt.line){const pts=labels.map((_,i)=>opt.line.vals[i]==null?null:[L+i*bw+bw/2,y(opt.line.vals[i]/U)]);let d='';pts.forEach(p=>{if(p)d+=(d?'L':'M')+p[0]+','+p[1]});s+=`<path d="${d}" fill="none" stroke="${opt.line.color}" stroke-width="2.4"/>`+pts.map((p,i)=>p?`<circle cx="${p[0]}" cy="${p[1]}" r="3.6" fill="#fff" stroke="${opt.line.color}" stroke-width="2" data-tip="${labels[i]} ${opt.line.name}\n${(opt.line.vals[i]/U>0?'+':'')+(opt.line.vals[i]/U).toFixed(1)}백만 원"/>`:'').join('')}
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%">${s}</svg>`+legend(series.map(x=>[x.name,x.color]).concat(opt.line?[[opt.line.name,opt.line.color]]:[]));
+}
+VIEWS.recon3=()=>{
+  const R=D.recon3,M=R.months,mm=M.slice(1);
+  const d3=R.l3.map((v,i)=>i?v-R.l3[i-1]:null),d6=R.l6.map((v,i)=>i?v-R.l6[i-1]:null),d6a=R.l6a.map((v,i)=>i?v-R.l6a[i-1]:null);
+  const df=R.l6.map((v,i)=>v-R.l3[i]),dfa=R.l6a.map((v,i)=>v-R.l3[i]);
+  const fm=v=>(v<0?'−':'+')+(Math.abs(v)/1e6).toFixed(1)+'백만',fp=v=>(Math.abs(v)/1e6).toFixed(1)+'백만';
+  const cA=R.comp,dlt=k=>cA[k].map((v,i)=>i?v-cA[k][i-1]:null).slice(1);
+  const last=M.length-1,lo=df.indexOf(Math.min(...df)),plSum=R.pl[last]-R.pl[0],stk3=R.st3.reduce((a,b)=>a+b,0);
+  const items=[
+   {l:'4월 부동산 재분류(총변동)',v:1067e6,c:'#833ab4'},
+   {l:'지혜 이상치(6월)',v:380e6,c:'#fcaf45'},
+   {l:'투자 성격 차이',v:stk3-plSum,c:'#405de6'},
+   {l:'9월 성현 재분류(총변동)',v:585e6,c:'#4fb0ae'},
+   {l:'지출 미차감(01~10월)',v:R.cfexp,c:'#e1306c'},
+   {l:'3번 항목합 불일치(01월)',v:8e6,c:'#a0a7b5'}];
+  return `<h1>3번 월별 차이</h1><p class="sub">3번 엑셀 가계부 vs 6번 자산·투자 · 2026년 월별 · 6번 − 3번 (합산, 2025-12 ~ 2026-10)</p>
+  <div class="grid g4">
+   <div class="card kpi"><div class="lb">차이 2025-12</div><div class="vl">${fm(df[0])}</div><div class="sb">6번 − 3번 · 개념 차이</div></div>
+   <div class="card kpi"><div class="lb">차이 ${M[last]}</div><div class="vl">${fm(df[last])}</div><div class="sb">최저 ${M[lo]} ${fm(df[lo])}</div></div>
+   <div class="card kpi"><div class="lb">3번 증가분(12→${M[last].slice(5)}월)</div><div class="vl">${fm(R.l3[last]-R.l3[0])}</div><div class="sb">누적 소득 기준</div></div>
+   <div class="card kpi"><div class="lb">6번 증가분(12→${M[last].slice(5)}월)</div><div class="vl">${fm(R.l6[last]-R.l6[0])}</div><div class="sb">총자산−총부채 기준</div></div></div>
+  <div class="card"><h3>금액 추이 (억 원)</h3><p class="note">3번은 누적 소득(흐름), 6번은 순자산(잔액) · 개념이 달라 수준 차이는 구조적입니다 · 3번 2026-10은 월 진행 중일 수 있음 [확인 필요]</p>${lineChart(M,[{name:'3번 누적 소득',color:'#405de6',vals:R.l3},{name:'6번 순자산',color:'#e1306c',vals:R.l6},{name:'6번 이상치 보정',color:'#fcaf45',vals:R.l6a}])}</div>
+  <div class="card"><h3>3번 누적 · 6번 순자산 · 차이 (백만 원)</h3><p class="note">표 수치 전체를 한 차트에 표시 · 차이 = 6번 순자산 − 3번 누적</p>${divBars(M,[{name:'3번 누적',color:'#405de6',vals:R.l3.map(v=>Math.round(v/1e5)*1e5)},{name:'6번 순자산',color:'#e1306c',vals:R.l6.map(v=>Math.round(v/1e5)*1e5)},{name:'차이 (6번−3번)',color:'#833ab4',sign:true,vals:df.map(v=>Math.round(v/1e5)*1e5)}],{vl:9})}</div>
+  <div class="card"><h3>월별 차이 (6번 − 3번, 백만 원)</h3><p class="note">보정: 지혜 02·05·06월 선형 보간 · 06월에 부호가 바뀝니다</p>${divBars(M,[{name:'보고값',color:'#833ab4',vals:df},{name:'이상치 보정',color:'#fcaf45',vals:dfa}])}</div>
+  <div class="card"><h3>월 증감 비교 (백만 원)</h3><p class="note">3번 월 총 소득 vs 6번 순자산 월 증감</p>${divBars(mm,[{name:'3번 월 증감',color:'#405de6',vals:d3.slice(1)},{name:'6번 월 증감',color:'#e1306c',vals:d6.slice(1)}],{line:{name:'증감 차이(6번−3번)',color:'#182033',vals:d6.slice(1).map((v,i)=>v-d3[i+1])}})}</div>
+  <div class="card"><h3>6번 월 증감 구성 (백만 원)</h3><p class="note">자산 구분별 증감 · 부채는 감소를 + 로 표기 · 선은 3번 월 총 소득 · 4월 부동산 −899와 부채 +830, 9월 부동산·실물 −165와 부채 +225가 서로 상쇄됩니다</p>${divBars(mm,[{name:'투자성 자산',color:'#405de6',vals:dlt('투자')},{name:'자유입출금',color:'#4fb0ae',vals:dlt('현금')},{name:'부동산·실물',color:'#833ab4',vals:dlt('부동산·실물')},{name:'부채 감소',color:'#fcaf45',vals:dlt('부채').map(v=>-v)}],{stack:true,line:{name:'3번 월 총 소득',color:'#182033',vals:d3.slice(1)}})}</div>
+  <div class="card"><h3>차이 원인별 규모 (백만 원)</h3><p class="note">참고 규모이며 항목 간 중복이 있어 합산하지 않습니다 · 4·9월 재분류와 이상치는 원본 확인 필요, 지출·투자는 참고 수치</p>${hbars(items,v=>fp(v))}<p style="margin:8px 0 0;font-size:12px;color:#7a8399">그 외: 기준일 차이(3번 월 합계 vs 6번 월중 스냅샷), 3번 부동산 소득(01월 −30, 02월 +105.6백만)과 6번 부동산 잔액 변동의 시점 차이 [확인 필요]</p></div>`};
+/* ===== 렌더 ===== */
+function render(){
+  $('#ttl').textContent=TITLES[st.view];
+  $('#view').innerHTML=VIEWS[st.view]();
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===st.view));
+  $('#segOwner').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.o===st.owner));
+  $('#chkEx').checked=st.ex;
+  $('.main').scrollTop=0;
+}
+(function buildMenu(){
+  let h='',i=0;
+  MENU.forEach(([g,items])=>{h+=`<div class="menu-label">${g}</div>`;items.forEach(([v,l,e])=>{const hue=(i*47+20)%360;i++;h+=`<button class="nav-item" data-view="${v}"><span class="nav-icon" style="background:hsla(${hue},85%,60%,.18)!important">${e.trim()}</span><span class="nav-label">${l}</span></button>`})});
+  $('#menu').innerHTML=h;
+  $('#menu').addEventListener('click',e=>{const b=e.target.closest('.nav-item');if(b){st.view=b.dataset.view;render()}});
+})();
+$('#segOwner').addEventListener('click',e=>{const b=e.target.closest('button');if(b){st.owner=b.dataset.o;render()}});
+$('#chkEx').addEventListener('change',e=>{st.ex=e.target.checked;render()});
+/* 툴팁 */
+const tip=$('#tip');
+document.addEventListener('mouseover',e=>{const t=e.target.closest('[data-tip]');if(t){tip.textContent=t.getAttribute('data-tip');tip.style.display='block'}});
+document.addEventListener('mousemove',e=>{if(tip.style.display==='block'){tip.style.left=Math.min(e.clientX+14,innerWidth-200)+'px';tip.style.top=(e.clientY+14)+'px'}});
+document.addEventListener('mouseout',e=>{if(e.target.closest('[data-tip]'))tip.style.display='none'});
+/* ===== 챗봇 ===== */
+const QA=[
+ ['합산 순자산은?',()=>{const t=B['성현'].net+B['지혜'].net;return `${D.last} 기준 합산 순자산은 ${fE(t)}입니다 (성현 ${fE(B['성현'].net)}, 지혜 ${fE(B['지혜'].net)}).`}],
+ ['지혜 순자산 증가 폭은?',()=>{const a=D.nw['지혜']['2025-04'].net,b=B['지혜'].net;return `2025-04 ${fE(a)}에서 ${D.last} ${fE(b)}로 ${fE(b-a)}(${pct(b-a,a).toFixed(0)}%) 늘었습니다. 중간 이상치 월(2026-02·05·06)은 원인 확인이 필요합니다.`}],
+ ['성현 투자 집중도는?',()=>{const s=B['성현'].inv,v=sum(s.map(i=>i.value)),h=sum(s.filter(i=>i.name==='SK하이닉스').map(i=>i.value));return `성현 투자현황 평가금액 ${fE(v)} 중 SK하이닉스(2계좌)가 ${fE(h)}로 ${pct(h,v).toFixed(0)}%입니다.`}],
+ ['연 이자는 얼마인가요?',()=>{const L=[...B['성현'].loan,...B['지혜'].loan].filter(l=>l.rate!=null);return `금융 대출 잔액 ${fE(sum(L.map(l=>l.balance)))} 기준 연 이자 추정은 약 ${fM(interest(L))}만 원(월 ${fM(interest(L)/12)}만 원)입니다. 잔액×금리 단순 추정입니다.`}],
+ ['부채는 어떻게 구성되나요?',()=>{let d=0,f=0;OWN.forEach(o=>{const s=loanSplit(o);d+=s.dep;f+=s.fin});return `총부채 ${fE(d+f)} 중 '전세 보증금' 항목이 ${fE(d)}, 금융 대출이 ${fE(f)}입니다. 보증금 항목의 성격은 확인이 필요합니다.`}],
+ ['지출 미분류 비중은?',()=>{const j=D.cf.o['지혜'],s=D.cf.o['성현'];return `최근 ${D.cf.months.length}개월 기준 지혜 ${pct(sum(j.unclass),sum(j.expense)).toFixed(0)}%, 성현 ${pct(sum(s.unclass),sum(s.expense)).toFixed(0)}%입니다.`}],
+ ['이상치 월은?',()=>`${D.flag.map(([o,m])=>o+' '+m+'('+fE(D.nw[o][m].net)+')').join(', ')}입니다. 상단 '이상치 월 제외'로 숨길 수 있습니다.`],
+ ['3번과 월별 차이는?',()=>{const R=D.recon3,d=R.l6.map((v,i)=>v-R.l3[i]);return `${R.months[R.months.length-1]} 기준 6번 − 3번은 ${fE(d[d.length-1])}입니다 (2025-12 ${fE(d[0])}). 3번은 누적 소득, 6번은 잔액이라 수준이 아닌 월 증감으로 비교해야 합니다. '3번 월별 차이' 메뉴를 확인하십시오.`}],
+ ['3번과 무엇이 다른가요?',()=>'3번은 소득·지출 흐름(2019~2026), 이 화면은 자산·부채·투자 구성(스냅샷)을 보여 줍니다. 순자산은 기준월이 달라 대사가 필요합니다.']
+];
+const KW=[[/순자산|합산/,0],[/증가|지혜/,1],[/집중|하이닉스|투자/,2],[/이자|금리|대출/,3],[/부채|보증금/,4],[/미분류|지출/,5],[/이상|급락/,6],[/월별.*차이|차이.*월별|대사/,7],[/3번|차이|다른/,8]];
+const log=$('#cbLog');
+function say(t,c){const d=document.createElement('div');d.className='msg '+c;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight}
+function ask(i,q){say(q,'u');say(QA[i][1](),'a')}
+function reset(){log.innerHTML='';say('안녕하세요. 이 화면의 자산·투자 수치를 질문에 맞게 알려 드립니다. 투자 판단은 제공하지 않습니다.','a')}
+$('#cbQs').innerHTML=QA.map((q,i)=>`<button type="button" data-i="${i}">${q[0]}</button>`).join('');
+$('#cbQs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)ask(+b.dataset.i,QA[+b.dataset.i][0])});
+$('#cbIn').addEventListener('submit',e=>{e.preventDefault();const v=$('#cbText').value.trim();if(!v)return;const k=KW.find(x=>x[0].test(v));if(k)ask(k[1],v);else{say(v,'u');say('질문을 이해하지 못했습니다. 아래 질문 버튼을 눌러 보세요.','a')}$('#cbText').value=''});
+$('#cbFab').addEventListener('click',()=>$('#cbPanel').classList.toggle('open'));
+$('#cbClose').addEventListener('click',()=>$('#cbPanel').classList.remove('open'));
+$('#cbReset').addEventListener('click',reset);
+reset();
+render();
+</script>
+</body>
+</html>
